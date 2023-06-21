@@ -242,7 +242,7 @@ def _SystemSearchdirsGCC(compiler, sysroot, language, canonical_lookup):
              + "for compiler '%s', language '%s':\n"
              + "couldn't parse output of '%s'.\nReceived:\n%s") %
              (compiler, language, command, out))
-  return [ canonical_lookup(directory)
+  ret = [ canonical_lookup(directory)
            for line in match_obj.group(1).split("\n")
            for directory in line.split()
            # Ignore Apple-modified MacOS gcc's "framework" directories.
@@ -263,6 +263,11 @@ def _SystemSearchdirsGCC(compiler, sysroot, language, canonical_lookup):
            #     For each #include of the form Foo/bar.h
            #       from Baz/Quux.framework/Headers/whatever.h
            #            Look in Baz/Quux.framework/Frameworks/Foo/Headers/bar.h.
+  ret.insert(0, canonical_lookup('/opt/soldev'))
+  ret.insert(0, canonical_lookup('/opt/boost-1.72.0'))
+  ret.insert(0, canonical_lookup('/opt/boost-1.77.0'))
+  ret.insert(0, canonical_lookup('/usr/lib64/glib-2.0/include'))
+  return ret
 
 class CompilerDefaults(object):
   """Records and caches the default search dirs and creates symlink farm.
