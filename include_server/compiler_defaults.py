@@ -264,6 +264,7 @@ def _SystemSearchdirsGCC(compiler, sysroot, language, canonical_lookup):
            #       from Baz/Quux.framework/Headers/whatever.h
            #            Look in Baz/Quux.framework/Frameworks/Foo/Headers/bar.h.
   ret.insert(0, canonical_lookup('/opt/soldev'))
+  ret.insert(0, canonical_lookup('/opt/gcc-7.3.0-x86_64'))
   ret.insert(0, canonical_lookup('/opt/boost-1.72.0'))
   ret.insert(0, canonical_lookup('/opt/boost-1.77.0'))
   ret.insert(0, canonical_lookup('/usr/lib64/glib-2.0/include'))
